@@ -1,0 +1,30 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>MyLibrary Home</h1>
+
+    <p>Here you can find, create or borrow a book for any taste easily.</p>
+
+
+    <h2>Welcome to MyLibrary</h2>
+    <p>You can login and start browsing</p>
+
+    <div>
+    {% load static %}
+    <img src="{% static 'images/library-stacks.jpg' %}" alt="My image" style="width:756px;height:567px;"/>
+    </div>
+
+
+    <h2>Statistic</h2>
+
+    <p>MyLibrary has the following record counts:</p>
+    <ul>
+    <li><strong>Books:</strong> {{ num_books }}</li>
+    <li><strong>Copies:</strong> {{ num_instances }}</li>
+    <li><strong>Copies available:</strong> {{ num_instances_available }}</li>
+    <li><strong>Authors:</strong> {{ num_authors }}</li>
+    </ul>
+
+
+    You have visited this page {{ num_visits }} times.
+{% endblock content %}
