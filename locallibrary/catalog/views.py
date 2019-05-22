@@ -14,7 +14,7 @@ from django.contrib.auth.decorators import permission_required
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
-from catalog.forms import RenewBookForm
+from .forms import RenewBookForm
 from .models import Book, Author, BookInstance
 
 
@@ -65,7 +65,7 @@ class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
 
 @permission_required('catalog.can_mark_returned')
 def renew_book_librarian(request, pk):
-    """View function for renewing a specific BookInstance by librarian."""
+    """View function for renewing a specific BookInstance by admins."""
     book_instance = get_object_or_404(BookInstance, pk=pk)
 
     if request.method == 'POST':
@@ -76,7 +76,7 @@ def renew_book_librarian(request, pk):
             book_instance.due_back = form.cleaned_data['renewal_date']
             book_instance.save()
 
-            return HttpResponseRedirect(reverse('my-borrowed'))
+            return HttpResponseRedirect(reverse('books'))
 
     else:
         proposed_renewal_date = datetime.date.today() + datetime.timedelta(weeks=3)
