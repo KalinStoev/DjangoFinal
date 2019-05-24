@@ -13,9 +13,9 @@ from django.contrib.auth.models import User
 
 class Genre(models.Model):
     name = models.CharField(
-        max_length=200,
-        help_text="Enter a book genre (e.g. Science Fiction, French Poetry etc.)"
-        )
+                            max_length=200,
+                            help_text="Enter a book genre (e.g. Science Fiction, French Poetry etc.)"
+                            )
 
     def __str__(self):
         return self.name
@@ -23,7 +23,8 @@ class Genre(models.Model):
 
 class Language(models.Model):
     name = models.CharField(max_length=200,
-                            help_text="Enter the book's natural language (e.g. English, French, Japanese etc.)")
+                            help_text="Enter the book's natural language (e.g. English, French, Japanese etc.)"
+                            )
 
     def __str__(self):
         return self.name
@@ -41,14 +42,8 @@ class Book(models.Model):
     # ManyToManyField used because a genre can contain many books and a Book can cover many genres.
     language = models.ForeignKey('Language', on_delete=models.CASCADE, null=True)
 
-    def display_genre(self):
-        """Creates a string for the Genre. This is required to display genre in Admin."""
-        return ', '.join([genre.name for genre in self.genre.all()[:3]])
-
-    display_genre.short_description = 'Genre'
-
     def get_absolute_url(self):
-        """Returns the url to access a particular book instance. Because I don't like regex :)"""
+        """Returns the url to access a particular book instance. To be used in the list template"""
         return reverse('book-detail', args=[str(self.id)])
 
     def __str__(self):
@@ -87,7 +82,6 @@ class BookInstance(models.Model):
     # Order records when they are returned in a query and
     class Meta:
         ordering = ['due_back']
-        # permissions = (("can_mark_returned", "Set book as returned"),)
 
     def __str__(self):
         return f'{self.id}. {self.book.title}'
@@ -104,7 +98,7 @@ class Author(models.Model):
         ordering = ['first_name', 'last_name']
 
     def get_absolute_url(self):
-        """Returns the url to access a particular author instance. Because I don't like regex :)"""
+        """Returns the url to access a particular author instance. To be used in the list template"""
         return reverse('author-detail', args=[str(self.id)])
 
     def __str__(self):

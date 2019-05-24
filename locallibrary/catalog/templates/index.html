@@ -7,7 +7,11 @@
 
 
     <h2>Welcome to MyLibrary</h2>
+    {% if user.is_authenticated %}
+    <p>Your favourite book is waiting for you.</p>
+    {% else %}
     <p>You can login and start browsing</p>
+    {% endif %}
 
     <div>
     {% load static %}
@@ -15,7 +19,7 @@
     </div>
 
 
-    <h2>Statistic</h2>
+    <h3>Statistic</h3>
 
     <p>MyLibrary has the following record counts:</p>
     <ul>
