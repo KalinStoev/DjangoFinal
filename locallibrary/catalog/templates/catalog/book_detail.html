@@ -32,12 +32,15 @@
             {% endif %}
         </p>
         {% else %}
-            <a href="{% url 'bookinstance_update' copy.id%}">Change</a>
+            {% if perms.catalog.can_mark_returned %}
+                <a href="{% url 'bookinstance_update' copy.id%}">Change</a>
+            {% endif %}
         {% endif %}
     <p><strong>Imprint:</strong> {{copy.imprint}}</p>
     <p class="text-muted"><strong>Id:</strong> {{copy.id}}</p>
-
-    <a href="{% url 'bookinstance_delete' copy.id %}">Delete</a>
+    {% if perms.catalog.can_mark_returned %}
+        <a href="{% url 'bookinstance_delete' copy.id %}">Delete</a>
+    {% endif %}
 
 {% endfor %}
 </div>

@@ -2,6 +2,8 @@ from django.views import generic
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from django.contrib.auth.decorators import permission_required
+
 from django.contrib.auth.models import User
 # Create your views here.
 
@@ -16,4 +18,3 @@ class Register(generic.CreateView):
     form_class = UserCreationForm
     success_url = '/accounts/login/'
     template_name = 'register.html'
-
